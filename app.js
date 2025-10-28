@@ -1,7 +1,32 @@
-const http = require("http");
+const express = require('express');
+const app = express();
+const taskRoutes = require('./routes/tasks');
 
-const routes = require('./routes');
+if (typeof localStorage === 'undefined' || localStorage === null) {
+  let LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
 
-const server = http.createServer(routes);
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+app.use(express.json());
+app.use(taskRoutes);
+app.use(errorHandler);
 
-server.listen(3000);
+app.listen(3000);
+
+function errorHandler(err, req, res, next) {
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(500);
+  res.render('error', { error: err });
+}
