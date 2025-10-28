@@ -14,19 +14,38 @@ export class TaskListComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
-    this.mainService.addNewTask({
-      id: Guid.create().toString(),
-      title: 'test',
-      description: 'description',
-      completed: false
-    }).pipe(takeUntil(this.destroy$)).subscribe({
-      next: ((res) => {
-        console.log(res);
-      }),
-      error: ((err) => {
-        console.log(err);
-      })
-    })
-  }
+    // this.mainService
+    //   .addNewTask({
+    //     id: Guid.create().toString(),
+    //     title: 'test',
+    //     description: 'description',
+    //     completed: false,
+    //   })
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (res) => {
+    //       console.log(res);
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //     },
+    //   });
 
+    this.mainService
+      .removeTask({
+        id: '7e278b34-41db-d61c-f0f0-357c3acd0b59',
+        title: 'test',
+        description: 'description',
+        completed: false,
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
 }
