@@ -6,6 +6,9 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TaskForm, Task } from '../../models/main-models';
 import moment from 'moment';
 import { AsyncPipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import * as fromTasks from '../../reducers/tasks.reducer';
+import * as Tasks from '../../reducers/tasks.reducer.actions';
 
 @Component({
   selector: 'app-task-list-component',
@@ -14,22 +17,16 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './task-list-component.scss',
 })
 export class TaskListComponent implements OnInit {
-  private mainService = inject(MainService);
+  private storeTasks: Store<fromTasks.TasksState> = inject(Store<fromTasks.TasksState>);
   destroy$: Subject<boolean> = new Subject<boolean>();
   taskForm = new FormGroup<TaskForm>({
     title: new FormControl('', { nonNullable: true }),
     description: new FormControl('', { nonNullable: true }),
     completed: new FormControl(false, { nonNullable: true }),
   });
-  availableTasks$: Observable<Task[]> = this.mainService.getTasks().pipe(
-    catchError((err) => {
-      throw 'Error in getTasks: ' + err;
-    }),
-    map((tasks: Task[]) => {
-      
-      return tasks;
-    })
-  );
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
+
 }
