@@ -1,14 +1,11 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import * as fromLoading from './reducers/loading.tasks.reducer';
-import * as fromTask from './reducers/tasks.reducer';
+import * as fromLoadingTasks from './reducers/loading.tasks.reducer';
 
 export interface State {
-    loading: fromLoading.LoadingState,
-    tasks: fromTask.TasksState,
+    loadingTasks: fromLoadingTasks.LoadingTasksState,
 }
 
 export const reducers: ActionReducerMap<State> = {
-    loading: fromLoading.loadingReducer,
-    tasks: fromTask.tasksReducer
+    loadingTasks: fromLoadingTasks.loadingTasksReducer,
 }

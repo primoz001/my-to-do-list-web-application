@@ -1,1 +1,8 @@
-<p>task-list-component works!</p>
+@if (tasks$ | async; as tasks) {
+<div>
+    {{tasks | json}}
+    <button (click)="onAddTask()">
+        Add task
+    </button>
+</div>
+}
