@@ -1,26 +1,72 @@
 import { createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
-import { loadingSuccessful } from './loading.tasks.reducer.actions';
+import * as LoadingTasksActions from './loading.tasks.reducer.actions';
 import { Task } from '../models/main-models';
 
-export interface LoadingState {
-  loadedTasks: Task[];
+export interface LoadingTasksState {
+  isLoading: boolean;
+  tasks: Task[];
+  selectedTask: Task | null;
+  error: string | null;
 }
 
-const initialState: LoadingState = {
-  loadedTasks: [],
+const initialState: LoadingTasksState = {
+  isLoading: false,
+  tasks: [],
+  selectedTask: null,
+  error: null,
 };
 
-export const loadingReducer = createReducer(
+export const loadingTasksReducer = createReducer(
   initialState,
-  on(loadingSuccessful, (state, { payload }) => ({
+  on(LoadingTasksActions.getTasks, (state) => ({
     ...state,
-    loadedTasks: payload,
+    isLoading: true,
   })),
+  on(LoadingTasksActions.addTask, (state, { payload }) => ({
+    ...state,
+    selectedTask: payload,
+    isLoading: true,
+  })),
+  on(LoadingTasksActions.removeTask, (state, { payload }) => ({
+    ...state,
+    selectedTask: payload,
+    isLoading: true,
+  })),
+  on(LoadingTasksActions.completeTask, (state, { payload }) => ({
+    ...state,
+    selectedTask: payload,
+    isLoading: true,
+  })),
+  on(LoadingTasksActions.getTasksSuccess, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    tasks: payload,
+  })),
+  on(LoadingTasksActions.getTasksFailure, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error: error,
+  }))
 );
 
-export const getTasksLoadingState = createFeatureSelector<LoadingState>('loading');
+export const getTasksLoadingState = createFeatureSelector<LoadingTasksState>('loadingTasks');
 
-export const getLoadedTasks = createSelector(
+export const getIsLoadingTasks = createSelector(
   getTasksLoadingState,
-  (state: LoadingState) => state.loadedTasks
+  (state: LoadingTasksState) => state.isLoading
+);
+
+export const getIsLoadingTasksSuccess = createSelector(
+  getTasksLoadingState,
+  (state: LoadingTasksState) => state.tasks
+);
+
+export const getIsLoadingTasksFailure = createSelector(
+  getTasksLoadingState,
+  (state: LoadingTasksState) => state.error
+);
+
+export const getSelectedTask = createSelector(
+  getTasksLoadingState,
+  (state: LoadingTasksState) => state.selectedTask
 );

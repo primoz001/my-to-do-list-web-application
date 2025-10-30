@@ -2,6 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
+/**
+ * Get task list API
+ */
 router.post('/tasks', (req, res, next) => {
   let existingTasks = [];
   const tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -16,6 +19,9 @@ router.post('/tasks', (req, res, next) => {
   }
 });
 
+/**
+ * Get task by ID API
+ */
 router.post('/tasks/:id', (req, res, next) => {
   const id = req?.params?.id;
   let existingTasks = [];
@@ -38,6 +44,9 @@ router.post('/tasks/:id', (req, res, next) => {
   }
 });
 
+/**
+ * Add new task API
+ */
 router.post('/add-task', (req, res, next) => {
   const body = req?.body;
   let existingTasks = [];
@@ -45,11 +54,22 @@ router.post('/add-task', (req, res, next) => {
   if (tasks) {
     existingTasks = [...tasks];
   }
-  existingTasks.push(body);
+  if (body) {
+    existingTasks.push(body);
+  }
   localStorage.setItem('tasks', JSON.stringify(existingTasks));
-  res.status(200).send(body);
+  if (body) {
+    res.status(200).send(existingTasks);
+  }
+  else {
+    res.status(204).send(existingTasks);
+  }
+  
 });
 
+/**
+ * Remove task from list API
+ */
 router.put('/remove-task/:id', (req, res, next) => {
   const id = req?.params?.id;
   let existingTasks = [];
@@ -67,13 +87,16 @@ router.put('/remove-task/:id', (req, res, next) => {
   }
   localStorage.setItem('tasks', JSON.stringify(existingTasks));
   if (foundTask) {
-    res.status(200).send({res: 'Deleted'});
+    res.status(200).send(existingTasks);
   }
   else {
-    res.status(204).send({res: 'Not found'});
+    res.status(204).send(existingTasks);
   }
 });
 
+/**
+ * Update task in list API
+ */
 router.patch('/update-task/:id', (req, res, next) => {
   const id = req?.params?.id;
   const body = req?.body;
@@ -92,10 +115,10 @@ router.patch('/update-task/:id', (req, res, next) => {
   }
   localStorage.setItem('tasks', JSON.stringify(existingTasks));
   if (foundTask) {
-    res.status(200).send({res: 'Updated'});
+    res.status(200).send(existingTasks);
   }
   else {
-    res.status(204).send({res: 'Not found'});
+    res.status(204).send(existingTasks);
   }
 });
 

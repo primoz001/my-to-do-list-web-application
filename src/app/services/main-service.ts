@@ -21,7 +21,6 @@ export class MainService {
 
   /**
    * Call API to get list of tasks
-   * @param taskId string
    * @returns Observable<Task[]>
    */
   getTasks(): Observable<Task[]> {
@@ -41,20 +40,20 @@ export class MainService {
   /**
    * Call API to add new task to the list
    * @param task Task
-   * @returns Observable<Task>
+   * @returns Observable<Task[]>
    */
-  addNewTask(task: Task): Observable<Task> {
-    return this.httpClient.post<Task>(ADD_TASK_API_URL, task);
+  addNewTask(task: Task): Observable<Task[]> {
+    return this.httpClient.post<Task[]>(ADD_TASK_API_URL, task);
   }
 
   /**
    * Call API to remove task from the list
    * @param task Task
-   * @returns
+   * @returns Observable<Task[]>
    */
-  removeTask(task: Task): Observable<Task> {
+  removeTask(task: Task): Observable<Task[]> {
     const urlEncodedParams = encodeURI(task.id);
-    return this.httpClient.put<Task>(REMOVE_TASK_API_URL + urlEncodedParams, task);
+    return this.httpClient.put<Task[]>(REMOVE_TASK_API_URL + urlEncodedParams, task);
   }
 
   /**
@@ -62,8 +61,8 @@ export class MainService {
    * @param task Task
    * @returns
    */
-  updateTask(task: Task): Observable<Task> {
+  updateTask(task: Task): Observable<Task[]> {
     const urlEncodedParams = encodeURI(task.id);
-    return this.httpClient.patch<Task>(UPDATE_TASK_API_URL + urlEncodedParams, task);
+    return this.httpClient.patch<Task[]>(UPDATE_TASK_API_URL + urlEncodedParams, task);
   }
 }
