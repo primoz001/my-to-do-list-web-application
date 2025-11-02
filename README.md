@@ -2,58 +2,41 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
 
-## Development server
+## Installation guide
 
-To start a local development server, run:
+Download and unzip file from github, install Node.js version 22.18.0. and install node modules in the same directory with the following command:
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Npm version used: 10.9.3
 
 ```bash
-ng generate component component-name
+npm install
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To start a local development server run in terminal:
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
-
-To build the project run:
+To start node.js server run in second terminal:
 
 ```bash
-ng build
+npm run start-server
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To start node.js server in development mode run in second terminal:
 
 ```bash
-ng test
+npm run start-server-dev
 ```
 
-## Running end-to-end tests
+Once the server is running, open your browser and navigate to `http://localhost:4200/`.
 
-For end-to-end (e2e) testing, run:
+## Added functionalities
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* Added task list component with interactive task list functionality to view, add and update tasks in the list
+* Added support services
+* Added models and constants
+* Added unit tests
+* Node.js with Express.js used together with node-localstorage for API backend data
+* Added state management with ngrx, @ngrx/store and @ngrx/effects
+* Added bootstrap toolkit and basic styling

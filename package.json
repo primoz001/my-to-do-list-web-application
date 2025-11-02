@@ -1,13 +1,14 @@
 {
   "name": "my-to-do-list-web-application",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start-server": "nodemon app.js"
+    "start-server": "node app.js",
+    "start-server-dev": "nodemon app.js"
   },
   "prettier": {
     "printWidth": 100,
@@ -33,6 +34,7 @@
     "@ngrx/effects": "^20.1.0",
     "@ngrx/store": "^20.1.0",
     "bootstrap": "^5.3.8",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "guid-typescript": "^1.0.9",
     "moment": "^2.30.1",
