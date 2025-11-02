@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+.main-body {
+  margin: 32px;
+  font-family: sans-serif;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.header-text {
+  font-size: 18px;
+  font-style: bold;
+}
+
+.list-text {
+  font-size: 12px;
+}
+
+.error-container {
+  font-size: 36px;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.form-check.form-switch {
+  .form-check-input {
+    &:checked {
+      background-color: #198754;
+      border-color: #198754;
+    }
+  }
+}
+
+.description-container {
+  word-break: break-all;
+}

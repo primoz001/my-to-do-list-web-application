@@ -1,8 +1,98 @@
-@if (tasks$ | async; as tasks) {
-<div>
-    {{tasks | json}}
-    <button (click)="onAddTask()">
-        Add task
-    </button>
+<div class="main-body">
+  <h1>TO-DO List</h1>
+  <form [formGroup]="addNewTaskForm" (ngSubmit)="onAddTask()">
+    <div class="mt-24">
+      <h2>Add new task</h2>
+      <div>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="title-input"
+            placeholder="Title"
+            formControlName="title"
+            [ngClass]="titleForm?.invalid && titleForm?.touched ? 'is-invalid' : 'is-valid'"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <textarea
+            class="form-control"
+            id="description-input"
+            placeholder="Description"
+            formControlName="description"
+            [ngClass]="
+              descriptionForm?.invalid && descriptionForm?.touched ? 'is-invalid' : 'is-valid'
+            "
+          ></textarea>
+        </div>
+      </div>
+      @if (addNewTaskForm.valid) {
+      <div>
+        <button type="submit" class="btn btn-success btn-sm">Add Task</button>
+      </div>
+      }
+    </div>
+  </form>
+  <div class="mt-24">
+    <h2>Tasks</h2>
+    @if ((isLoading$ | async) === true) {
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    } @else { @if (tasks$ | async; as tasks) { @if (tasks && tasks.length > 0) {
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="header-text">
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Created on</th>
+          <th scope="col">Updated on</th>
+          <th scope="col">Complete</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (task of tasks; track task.id; let idx = $index) {
+        <tr class="list-text" [ngClass]="{ 'table-success': isTaskCompleted(task) }">
+          <td>{{ task.title }}</td>
+          <td class="description-container">{{ task.description }}</td>
+          <td>{{ task.createdOn | date : 'dd.MM.yyyy HH:mm' : 'sl-SI' }}</td>
+          <td>{{ task.updatedOn | date : 'dd.MM.yyyy HH:mm' : 'sl-SI' }}</td>
+          <td>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                [id]="'completedTask' + idx"
+                [checked]="task.completed"
+                (click)="onCompleteTask(task)"
+              />
+            </div>
+          </td>
+          <td>
+            <button type="button" class="btn btn-success btn-sm" (click)="onRemoveTask(task)">
+              Remove
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    } @else {
+    <div class="error-container">
+      <span>No existing data</span>
+    </div>
+    } } @else { @if ((error$ | async) !== null) {
+    <div class="error-container">
+      <span>Error retrieving data</span>
+    </div>
+    } @else {
+    <div class="error-container">
+      <span>No existing data</span>
+    </div>
+    } } }
+  </div>
 </div>
-}

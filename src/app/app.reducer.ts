@@ -1,5 +1,4 @@
 import { ActionReducerMap } from '@ngrx/store';
-
 import * as fromLoadingTasks from './reducers/loading.tasks.reducer';
 
 export interface State {

@@ -9,11 +9,7 @@ export interface Task {
     updatedOn: string;
 };
 
-export interface TaskForm {
+export interface AddNewTaskForm {
     title: FormControl<string>;
     description: FormControl<string>;
-};
-
-export interface CompletedTaskForm {
-    completed: FormControl<boolean>;
 };

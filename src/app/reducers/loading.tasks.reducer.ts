@@ -1,5 +1,5 @@
 import { createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as LoadingTasksActions from './loading.tasks.reducer.actions';
+import * as loadingTasksActions from './loading.tasks.reducer.actions';
 import { Task } from '../models/main-models';
 
 export interface LoadingTasksState {
@@ -18,31 +18,31 @@ const initialState: LoadingTasksState = {
 
 export const loadingTasksReducer = createReducer(
   initialState,
-  on(LoadingTasksActions.getTasks, (state) => ({
+  on(loadingTasksActions.getTasks, (state) => ({
     ...state,
     isLoading: true,
   })),
-  on(LoadingTasksActions.addTask, (state, { payload }) => ({
-    ...state,
-    selectedTask: payload,
-    isLoading: true,
-  })),
-  on(LoadingTasksActions.removeTask, (state, { payload }) => ({
+  on(loadingTasksActions.addTask, (state, { payload }) => ({
     ...state,
     selectedTask: payload,
     isLoading: true,
   })),
-  on(LoadingTasksActions.completeTask, (state, { payload }) => ({
+  on(loadingTasksActions.removeTask, (state, { payload }) => ({
     ...state,
     selectedTask: payload,
     isLoading: true,
   })),
-  on(LoadingTasksActions.getTasksSuccess, (state, { payload }) => ({
+  on(loadingTasksActions.completeTask, (state, { payload }) => ({
+    ...state,
+    selectedTask: payload,
+    isLoading: true,
+  })),
+  on(loadingTasksActions.getTasksSuccess, (state, { payload }) => ({
     ...state,
     isLoading: false,
     tasks: payload,
   })),
-  on(LoadingTasksActions.getTasksFailure, (state, { error }) => ({
+  on(loadingTasksActions.getTasksFailure, (state, { error }) => ({
     ...state,
     isLoading: false,
     error: error,

@@ -15,32 +15,7 @@ router.post('/tasks', (req, res, next) => {
     res.status(200).send(existingTasks);
   }
   else {
-    res.status(204).send([]);
-  }
-});
-
-/**
- * Get task by ID API
- */
-router.post('/tasks/:id', (req, res, next) => {
-  const id = req?.params?.id;
-  let existingTasks = [];
-  let foundTask;
-  const tasks = JSON.parse(localStorage.getItem('tasks'));
-  if (tasks) {
-    existingTasks = [...tasks];
-  }
-  if (existingTasks && existingTasks.length > 0) {
-    if (id) {
-      const index = existingTasks.findIndex((x) => x.id === id);
-      foundTask = existingTasks[index];
-    }
-  }
-  if (foundTask) {
-    res.status(200).send(foundTask);
-  }
-  else {
-    res.status(204).send({});
+    res.status(204).send(existingTasks);
   }
 });
 

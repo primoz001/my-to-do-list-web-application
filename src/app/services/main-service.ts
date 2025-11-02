@@ -6,7 +6,6 @@ import {
   REMOVE_TASK_API_URL,
   UPDATE_TASK_API_URL,
   GET_TASKS_API_URL,
-  GET_TASK_BY_ID_API_URL,
 } from '../constants/main-constants';
 import { Observable } from 'rxjs';
 
@@ -25,16 +24,6 @@ export class MainService {
    */
   getTasks(): Observable<Task[]> {
     return this.httpClient.post<Task[]>(GET_TASKS_API_URL, {});
-  }
-
-  /**
-   * Call API to get task by ID
-   * @param taskId string
-   * @returns Observable<Task>
-   */
-  getTaskById(taskId: string): Observable<Task> {
-    const urlEncodedParams = encodeURI(taskId);
-    return this.httpClient.post<Task>(GET_TASK_BY_ID_API_URL + urlEncodedParams, { id: taskId });
   }
 
   /**
@@ -59,7 +48,7 @@ export class MainService {
   /**
    * Call API to update task in the list
    * @param task Task
-   * @returns
+   * @returns Observable<Task[]>
    */
   updateTask(task: Task): Observable<Task[]> {
     const urlEncodedParams = encodeURI(task.id);
