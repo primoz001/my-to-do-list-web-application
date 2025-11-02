@@ -3,7 +3,7 @@
   <form [formGroup]="addNewTaskForm" (ngSubmit)="onAddTask()">
     <div class="mt-24">
       <h2>Add new task</h2>
-      <div>
+      <div class="add-task-container">
         <div class="input-group mb-3">
           <input
             type="text"
@@ -36,7 +36,7 @@
   <div class="mt-24">
     <h2>Tasks</h2>
     @if ((isLoading$ | async) === true) {
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-24">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>

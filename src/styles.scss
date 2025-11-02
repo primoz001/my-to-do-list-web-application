@@ -35,3 +35,8 @@
 .description-container {
   word-break: break-all;
 }
+
+.add-task-container {
+  display: inline-flex;
+  flex-direction: column;
+}
